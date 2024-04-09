@@ -1,49 +1,31 @@
-<h1>Implemented Proxy Server in C language</h1>
-<h2>Working on implementation of cache using doubly-linked-list</h2>
+<h1>SUDOKU SOLVER using server-client model</h1>
 
-##### Introduction
-I was always curious about how a server is built and how the data is tranfered from server to client and vice versa. This project was built with intention to support multiple clients at once and my personal motive being understanding the functionalities that goes into implementing the server and specifically using Least Recently Used cache (LRU) with memory management to serve faster responses.
+#### Project summary
+- Implemented in C++ language, a server-client model which uses a sudoku solving API
+- There is an input verification layer in client side so as to make valid requests to server
+- Server uses fd_set to process every client connection and it runs as a daemon process in the background
+- The server processes the received string and sends back a valid solution, if exists, else it will send the corresponding error message
+- The strings that are sent and received on server and client end are encrypted using a custom encryption and decryption function which utilized XOR gate
 
-##### Implementation of multi-threading
-- Used pthread_create function with combination of sem_wait and sem_post functions to avoid thread clash
-
-##### Motivation for Project
-- To Understand how multithreaded-server is built and sustains multiple concurrent client connection
-- Understanding implementation of semaphore with multithreads
-- To build a custom cache using doubly-linked list and manage cache space storage
-
- 
-##### OS Component Used ​
-- Implemented:
-	- Threading
-	- Semaphore
-- Implementation ongoing:
-	- Cache (LRU cache using doubly-linked-list)
-	- Locks for cache
-	- Cache size management
-
-##### Limitations ​
-- This implementation does not support 'CONNECT' request which is rejected, hence fetching sites fails for large websites
-- There is no database so storing large 'GET' requests is not possible
-
-##### How this project can be extended? ​
-- Handling CONNECT operation and then following up with GET requests
-- Handling POST operation through a proxy server
-
+#### Limitations
+- The server can only process a single client connection at one time
+- OpenSSL library can be induced to make the API encrption stronger
 
 ## How to Run
 
 ```bash
 $ (clone the repository)
-$ cd PROXY_SERVER
+$ cd SERVER
 $ make
-$ ./util_server
+$ ./server_util run-daemon
+$ cd ../CLIENT
+$ make
+$ ./util
 ```
-`Open any site which has only GET request or manually perform a GET request with required URL parameters and header parameters`
+`Once you run the util from client, the program has an inbuilt guide for input structure which you can refer to`
+
 
 # Note:
 - This code will only run on LINUX machine.
-
-I have referred to <a href = "https://github.com/Lovepreet-Singh-LPSK/MultiThreadedProxyServerClient">Project</a> for my base code and further implementation.
 
 #### Reviews if any from all the coding enthusiats are always welcomed !!
